@@ -1,0 +1,34 @@
+@import '../src/styles/variables';
+
+html, body {
+  margin: 0;
+  font-family: 'Inria Sans';
+}
+
+h1, h2, h3, h4, button, table {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+h1 {
+  font-size: 56px;
+}
+
+h2 {
+  font-size: 36px !important;
+}
+
+h1:focus {
+    outline: none;
+}
+
+a, .btn-link {
+  color: #0071c1;
+  font-weight: bold;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}

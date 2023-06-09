@@ -1,0 +1,96 @@
+<div class="modal-backdrop" [class.show]="showModal"></div>
+
+<div
+  class="modal fade"
+  id="uiModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="uiModal"
+  aria-hidden="true"
+  [class.show]="showModal"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/close.png" (click)="closeModal()" style="height: 30px" alt="Image">
+      </div>
+      <div class="modal-body">
+        <div class="controls">
+          <h2>Background</h2>
+          <div class="custom-radios">
+            <div>
+              <input
+                type="radio"
+                id="color-1"
+                name="color"
+                value="color-1"
+                (change)="onColorChange('color-1')"
+                checked
+              />
+              <label for="color-1">
+                <span>
+                  <img
+                    class="checked-icon"
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input type="radio" id="color-2" name="color" value="color-2" (change)="onColorChange('color-2')"/>
+              <label for="color-2">
+                <span>
+                  <img
+                    class="checked-icon"
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input type="radio" id="color-3" name="color" value="color-3" (change)="onColorChange('color-3')"/>
+              <label for="color-3">
+                <span>
+                  <img
+                  class="checked-icon"
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input type="radio" id="color-4" name="color" value="color-4" (change)="onColorChange('color-4')"/>
+              <label for="color-4">
+                <span>
+                  <img
+                    class="checked-icon"
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg"
+                    alt="Checked Icon"
+                  />
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+      
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-main"
+          style="transform: none"
+          (click)="applyColor()"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

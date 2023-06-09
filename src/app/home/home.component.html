@@ -1,0 +1,134 @@
+<app-modal #settingsModal (applyClicked)="changeBackground($event)"></app-modal>
+<div class="login-body d-flex align-items-center" [style.background-color]="backgroundColor">
+  <div class="container">
+    <div class="login-container row">
+      <div class="main-card col-lg-10 col-xl-9 card mx-auto px-0">
+        <div class="nav d-flex justify-content-center align-items-center">
+          <img class="nav-icon" src="../assets/images/exit.png" (click)="onExit()" />
+          <div class="text-wrap text-center">
+            <h2 class="text-main">Score: {{ score | async }}</h2>
+          </div>
+          <img
+            class="nav-icon img-rotate"
+            src="../assets/images/settings.png"
+            (click)="openModal()"
+          />
+        </div>
+
+        <div class="coins-container">
+          <img [src]="coinImage1 | async" class="coin" [class.flip-animation]="flipAnimation | async" />
+          <img [src]="coinImage2 | async" class="coin" [class.flip-animation]="flipAnimation | async" />
+        </div>
+        <h2 class="text-main d-flex justify-content-center">
+          {{ scoreText.value }}
+        </h2>
+
+        <div class="button-container d-flex justify-content-center">
+          <button
+            class="btn-main btn-block"
+            style="background: #ff75f9"
+            (click)="flipCoins('heads')"
+            [disabled]="flipAnimation | async"
+          >
+            Heads
+          </button>
+          <h2 class="text-main align-vs">Vs</h2>
+          <button
+            class="btn-main btn-block"
+            style="background: #ff7575"
+            (click)="flipCoins('tails')"
+            [disabled]="flipAnimation | async"
+          >
+            Tails
+          </button>
+        </div>
+
+        <div class="leaderboard">
+          <div class="board">
+            <table class="table table-sm">
+              <thead>
+                <tr style="border-bottom: 3px solid black">
+                  <th scope="col">#</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <img src="../assets/images/first.png" height="40" />
+                  </th>
+                  <td>Mark Jackson</td>
+                  <td>500</td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <img src="../assets/images/second.png" height="40" />
+                  </th>
+                  <td>Anastasiia Dovhan</td>
+                  <td>350</td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <img src="../assets/images/third.png" height="40" />
+                  </th>
+                  <td>Unknown Player</td>
+                  <td>250</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>Jack Fogarty</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>Andrew Coin</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td>Dave Gilbert</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td>Geoarge Spilberg</td>
+                  <td>345</td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td>John Wick</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <th scope="row">9</th>
+                  <td>Jennifer Phillips</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <th scope="row">10</th>
+                  <td>Anna Vintur</td>
+                  <td>565</td>
+                </tr>
+                <tr>
+                  <th scope="row">YOU</th>
+                  <td>Anastasiia Dovhan</td>
+                  <td>565</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab">
+            <h2 class="text-main">Leaderboard</h2>
+            <img
+              class="temp-img"
+              style="height: 40px"
+              src="../assets/images/cup.png"
+            />
+          </div>
+        </div>
+        <div class="leaderboard-fade"></div>
+      </div>
+    </div>
+  </div>
+</div>

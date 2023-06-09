@@ -1,0 +1,101 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+p {
+    font-size: 20px;
+}
+
+/* --------------------
+    Button style
+--------------------- */
+
+.btn-main {
+    background: #FF75F9;
+    border: 3px solid #030303;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    border-radius: 5px;
+    width: 200px;
+    height: 50px;
+    font-size: 24px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.btn-main-rotate {
+    transform: rotate(-3deg);
+}
+
+.btn-main:active {
+    transform: rotate(-3deg) translateY(4px) translateY(4px);
+    box-shadow: 0px 0px 0px 0px;
+}
+
+/* --------------------
+    Login page
+--------------------- */
+
+.login-body {
+    height: 100vh;
+    background: #FFD075;
+}
+
+.login-container {
+    min-height: 500px;
+}
+
+.main-card {
+    width: 75% !important;
+}
+
+.card {
+    border: 3px solid #030303;
+    border-radius: 5px;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+}
+
+.input {
+    width: 200px;
+    height: 40px;
+    border: 2.5px solid #030303;
+    box-shadow: rgb(255 255 255) 5px 5px 0px -2px, #030303 5px 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.input:focus {
+    border: 3px solid black;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+}
+
+.img-left {
+    width: 50%;
+    border-right: 3px solid black;
+    background: #C5FF75;
+}
+
+.img-star {
+    -webkit-transform: translate(-50%,-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    height: 80px;
+    width: 80px;
+    transform-origin: center center;
+    animation: spin1 15s infinite linear;
+}
+
+@keyframes spin1 {
+    from {
+        transform: translate(-50%,-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+.img-arrow {
+    position: absolute;
+    top: 48%;
+    left: 86%;
+}

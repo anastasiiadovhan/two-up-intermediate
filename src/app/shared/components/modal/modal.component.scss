@@ -1,0 +1,119 @@
+@import '../../../../styles/button';
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.custom-radios div {
+  display: inline-block;
+}
+
+.custom-radios input[type=radio] {
+  display: none;
+}
+
+.custom-radios input[type=radio] + label {
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.custom-radios input[type=radio] + label span {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid black;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  line-height: 44px;
+}
+
+.custom-radios input[type=radio] + label span img {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.custom-radios input[type=radio]#color-1 + label span {
+  background-color: var(--color-1);
+}
+
+.custom-radios input[type=radio]#color-2 + label span {
+  background-color: var(--color-2);
+}
+
+.custom-radios input[type=radio]#color-3 + label span {
+  background-color: var(--color-3);
+}
+
+.custom-radios input[type=radio]#color-4 + label span {
+  background-color: var(--color-4);
+}
+
+
+.custom-radios input[type=radio]:checked + label span img {
+  opacity: 1;
+}
+
+.checked-icon {
+  padding-top: 17px;
+}
+
+
+// new css
+
+.modal-backdrop {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 30px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-backdrop.show {
+  display: block;
+}
+
+.modal-content {
+  padding: 30px;
+  border-radius: 5px;
+  background: white;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.controls {
+  gap: 30px;
+}
+
+.modal-header, .modal-footer {
+  display: flex;
+  flex-direction: row-reverse;
+}
