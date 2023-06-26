@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ export class SignupComponent implements OnInit {
   passwordsDoNotMatch = false;
   errorMessage: string | null = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +35,7 @@ export class SignupComponent implements OnInit {
     .subscribe({
       next: (response) => {
         console.log('User registered!', response);
-        // You can redirect to login page or show success message
+        this.router.navigate(['/login']);
         this.errorMessage = null;
       },
       error: (error) => {

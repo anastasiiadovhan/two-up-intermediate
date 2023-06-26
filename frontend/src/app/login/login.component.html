@@ -23,20 +23,23 @@
                     <h2 class="text-center mb-3">
                         Login to play
                     </h2>
-                    <form class="form-box d-flex flex-column align-items-center">
-                        <div class="form-input pb-3">
-                            <input type="email" class="input" name="" placeholder="Email Address" tabindex="10" required />
-                        </div>
-                        <div class="form-input pb-4">
-                            <input type="password" class="input" name="" placeholder="Password" required />
-                        </div>
-                        <div class="mb-3 pb-3">
-                            <button type="submit" class="btn-main btn-block btn-main-rotate">Login</button>
-                        </div>
-                        <div class="text-center mb-2">
-                            Not a user?
-                            <a href="/signup" class="register-link">Register now.</a>
-                        </div>
+                    <form class="form-box d-flex flex-column align-items-center" (ngSubmit)="onSubmit()">
+                      <div class="form-input pb-3">
+                          <input type="text" class="input" name="username" placeholder="Username" tabindex="10" required [(ngModel)]="username" />
+                      </div>
+                      <div class="form-input pb-4">
+                          <input type="password" class="input" name="password" placeholder="Password" required [(ngModel)]="password" />
+                      </div>
+                      <div *ngIf="errorMessage" class="alert-custom">
+                        Invalid credentials
+                      </div>                      
+                      <div class="mb-3 pb-3">
+                          <button type="submit" class="btn-main btn-block btn-main-rotate">Login</button>
+                      </div>
+                      <div class="text-center mb-2">
+                          Not a user?
+                          <a routerLink="/signup" class="register-link">Register now.</a>
+                      </div>
                     </form>
                 </div>
 

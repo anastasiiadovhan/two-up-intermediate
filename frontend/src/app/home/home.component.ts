@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, interval, take } from 'rxjs';
 import { ModalComponent } from '../shared/components/modal/modal.component';
-import { saveAs } from 'file-saver';
+import { AuthService } from '../services/auth/auth.service';
+import { GameService } from '../services/game/game.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +24,12 @@ export class HomeComponent implements OnInit {
   scoreText = new BehaviorSubject<string>('Choose heads or tails to spin');
   totalPresses = 0;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private gameService: GameService,
+    private router: Router
+  ) { }
+
 
   ngOnInit(): void {
   }
@@ -62,17 +69,28 @@ export class HomeComponent implements OnInit {
   }
 
   onExit() {
-    const data = `Score: ${this.score.value}, Total presses: ${this.totalPresses}, Color chosen: ${this.backgroundColor}\n`;
-    alert(data);
-    const blob = new Blob([data], {type: "text/plain;charset=utf-8"});
-    saveAs(blob, "data.txt");
-    this.updateTheGame();
+    const userId = this.authService.getUserId();
+    
+    // Check if userId is not undefined
+    if(userId !== undefined) {
+      // Convert userId to number
+      const userIdNumber = Number(userId);
+  
+      // Save the game session
+      this.gameService.saveGameSession(userIdNumber, this.score.value).subscribe({
+        next: (response) => {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+          console.log('Game session saved!', response);
+        },
+        error: (error) => {
+          console.error('Error saving game session', error);
+        }
+      });
+    } else {
+      // Handle the undefined userId case here
+      console.error('User ID is undefined');
+    }
   }
-
-  updateTheGame() {
-    this.score.next(0);
-    this.totalPresses = 0;
-    this.backgroundColor = '#ffd075';
-    this.scoreText.next("Choose heads or tails to spin");
-  }
+  
 }

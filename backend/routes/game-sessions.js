@@ -4,29 +4,23 @@ const connection = require('../db');
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  const { score, color } = req.body;
-  const token = req.headers.authorization.split(' ')[1];
+router.post('/game-session/save', (req, res) => {
+  const userId = req.body.userId;
+  const score = req.body.score;
 
-  jwt.verify(token, 'your-secret-key', (err, decoded) => {
-    if (err) {
-      console.error('An error occurred while verifying JWT', err);
-      res.status(500).send('Server error');
-    } else {
-      connection.query(
-        `INSERT INTO game_sessions (user_id, score, preferred_color) VALUES (?, ?, ?)`,
-        [decoded.userId, score, color],
-        (err, results) => {
-          if (err) {
-            console.error('An error occurred while storing game session to DB', err);
-            res.status(500).send('Server error');
-          } else {
-            res.status(200).send('Game session recorded');
-          }
-        }
-      );
+  // insert new game session
+  connection.query(
+    'INSERT INTO game_sessions (user_id, score) VALUES (?, ?)',
+    [userId, score],
+    (err, results) => {
+      if (err) {
+        console.error('An error occurred while saving game session', err);
+        res.status(500).send('Server error');
+      } else {
+        res.status(200).send({message: 'Game session saved successfully'});
+      }
     }
-  });
+  );
 });
 
 router.get('/leaderboard', (req, res) => {
@@ -42,5 +36,24 @@ router.get('/leaderboard', (req, res) => {
     }
   );
 });
+
+router.post('/update-color', (req, res) => {
+  const userId = req.body.userId;
+  const color = req.body.color;
+
+  connection.query(
+    'UPDATE users SET preferred_color = ? WHERE id = ?',
+    [color, userId],
+    (err, results) => {
+      if (err) {
+        console.error('An error occurred while updating color', err);
+        res.status(500).send('Server error');
+      } else {
+        res.status(200).send({message: 'Color updated successfully'});
+      }
+    }
+  );
+});
+
 
 module.exports = router;
