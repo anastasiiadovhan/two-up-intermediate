@@ -8,16 +8,14 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private userId?: string;
-
   constructor(private http: HttpClient) { }
 
   setUserId(userId: string) {
-    this.userId = userId;
+    localStorage.setItem('userId', userId);
   }
 
   getUserId() {
-    return this.userId;
+    return localStorage.getItem('userId');
   }
 
   signup(username: string, password: string): Observable<any> {
@@ -42,6 +40,7 @@ export class AuthService {
   logout(): void {
     // removes the token and effectively logs out the user
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   }
 
   isLoggedIn(): boolean {

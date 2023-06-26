@@ -4,7 +4,7 @@ const connection = require('../db');
 
 const router = express.Router();
 
-router.post('/game-session/save', (req, res) => {
+router.post('/save', (req, res) => {
   const userId = req.body.userId;
   const score = req.body.score;
 
@@ -47,13 +47,32 @@ router.post('/update-color', (req, res) => {
     (err, results) => {
       if (err) {
         console.error('An error occurred while updating color', err);
-        res.status(500).send('Server error');
+        res.status(500).send('Server error' + err.message);
       } else {
         res.status(200).send({message: 'Color updated successfully'});
       }
     }
   );
 });
+
+router.get('/get-color/:userId', (req, res) => {
+  const userId = req.params.userId;
+
+  connection.query(
+    'SELECT preferred_color FROM users WHERE id = ?',
+    [userId],
+    (err, results) => {
+      if (err) {
+        console.error('An error occurred while retrieving color', err);
+        res.status(500).send('Server error');
+      } else {
+        res.status(200).json({color: results[0].preferred_color});
+      }
+    }
+  );
+});
+
+
 
 
 module.exports = router;

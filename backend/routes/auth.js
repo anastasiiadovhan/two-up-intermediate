@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const connection = require('../db');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = 'my-secret-key';
 
 router.post('/signup', (req, res) => {
   const { username, password } = req.body;
@@ -50,7 +53,9 @@ router.post('/login', (req, res) => {
         return;
       }
 
-      res.status(200).json({message: 'Login successful'});
+      // Passwords match - generate a JWT and send it back to the user
+      const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1h'});
+      res.status(200).json({message: 'Login successful', token: token, userId: user.id});
     });
   });
 });

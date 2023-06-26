@@ -8,10 +8,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const authRoutes = require('./routes/auth');
-// const gameSessionsRoutes = require('./routes/game-sessions');
+const gameSessionsRoutes = require('./routes/game-sessions');
 
 app.use('/auth', authRoutes);
-// app.use('/game-sessions', gameSessionsRoutes);
+app.use('/game-sessions', gameSessionsRoutes);
 
 const PORT = process.env.PORT || 3000;
 

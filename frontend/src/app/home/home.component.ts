@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   scoreText = new BehaviorSubject<string>('Choose heads or tails to spin');
   totalPresses = 0;
 
+  userId?: string;
+
   constructor(
     private authService: AuthService,
     private gameService: GameService,
@@ -32,6 +34,20 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const userId = this.authService.getUserId();
+    if(userId !== undefined) {
+      const userIdNumber = Number(userId);
+      this.gameService.getColor(userIdNumber).subscribe(
+        response => {
+          this.backgroundColor = response.color;
+        },
+        error => {
+          console.error('Error retrieving color', error);
+        }
+      );      
+    } else {
+      console.error('User ID is undefined');
+    }
   }
 
   flipCoins(side: string) {
@@ -66,6 +82,26 @@ export class HomeComponent implements OnInit {
 
   changeBackground(color: string) {
     this.backgroundColor = color;
+    const userId = this.authService.getUserId();
+
+    // Check if userId is not undefined
+    if (userId !== undefined) {
+      // Convert userId to number
+      const userIdNumber = Number(userId);
+      
+      // Update the color in the database
+      this.gameService.updateColor(userIdNumber, color).subscribe({
+        next: (response) => {
+          console.log('Color updated successfully!', response);
+        },
+        error: (error) => {
+          console.error('Error updating color', error);
+        }
+      });
+    } else {
+      // Handle the undefined userId case here
+      console.error('User ID is undefined');
+    }
   }
 
   onExit() {
