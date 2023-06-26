@@ -26,4 +26,8 @@ export class GameService {
   getColor(userId: number): Observable<any> {
     return this.http.get(`http://localhost:3000/game-sessions/get-color/${userId}`);
   }
+
+  getLeaderboard(): Observable<any> {
+    return this.http.get('http://localhost:3000/leaderboard');
+  }  
 }

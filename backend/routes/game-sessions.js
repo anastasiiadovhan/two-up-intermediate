@@ -25,7 +25,7 @@ router.post('/save', (req, res) => {
 
 router.get('/leaderboard', (req, res) => {
   connection.query(
-    'SELECT * FROM game_sessions ORDER BY score DESC LIMIT 10',
+    'SELECT userId, MAX(score) as score FROM game_sessions GROUP BY userId ORDER BY score DESC LIMIT 10',
     (err, results) => {
       if (err) {
         console.error('An error occurred while retrieving high scores', err);

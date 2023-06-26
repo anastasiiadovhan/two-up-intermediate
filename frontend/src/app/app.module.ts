@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     SignupComponent,
     ModalComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
