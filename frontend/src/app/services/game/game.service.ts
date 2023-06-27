@@ -28,6 +28,10 @@ export class GameService {
   }
 
   getLeaderboard(): Observable<any> {
-    return this.http.get('http://localhost:3000/leaderboard');
+    return this.http.get('http://localhost:3000/game-sessions/leaderboard');
+  }  
+
+  getUserHighestScore(userId: number): Observable<any> {
+    return this.http.get(`http://localhost:3000/game-sessions/user-score/${userId}/highest-score`);
   }  
 }

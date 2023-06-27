@@ -25,7 +25,7 @@ router.post('/save', (req, res) => {
 
 router.get('/leaderboard', (req, res) => {
   connection.query(
-    'SELECT userId, MAX(score) as score FROM game_sessions GROUP BY userId ORDER BY score DESC LIMIT 10',
+    'SELECT users.username, MAX(game_sessions.score) as score FROM game_sessions INNER JOIN users ON game_sessions.user_id = users.id GROUP BY game_sessions.user_id, users.username ORDER BY score DESC LIMIT 10',
     (err, results) => {
       if (err) {
         console.error('An error occurred while retrieving high scores', err);
@@ -64,7 +64,7 @@ router.get('/get-color/:userId', (req, res) => {
     (err, results) => {
       if (err) {
         console.error('An error occurred while retrieving color', err);
-        res.status(500).send('Server error');
+        res.status(500).send('Server error' + err.message);
       } else {
         res.status(200).json({color: results[0].preferred_color});
       }
@@ -72,7 +72,21 @@ router.get('/get-color/:userId', (req, res) => {
   );
 });
 
+router.get('/user-score/:userId/highest-score', (req, res) => {
+  const userId = req.params.userId;
 
-
+  connection.query(
+    'SELECT users.username, MAX(game_sessions.score) as score FROM game_sessions INNER JOIN users ON game_sessions.user_id = users.id WHERE users.id = ? GROUP BY game_sessions.user_id, users.username',
+    [userId],
+    (err, results) => {
+      if (err) {
+        console.error('An error occurred while retrieving user score', err);
+        res.status(500).send('Server error');
+      } else {
+        res.status(200).send(results[0]);
+      }
+    }
+  );
+});
 
 module.exports = router;
