@@ -105,28 +105,29 @@ export class HomeComponent implements OnInit {
   }
 
   onExit() {
-    const userId = this.authService.getUserId();
+    if(window.confirm('Are you sure you want to end the game?')) {
+      const userId = this.authService.getUserId();
+      
+      // Check if userId is not undefined
+      if(userId !== undefined) {
+        // Convert userId to number
+        const userIdNumber = Number(userId);
     
-    // Check if userId is not undefined
-    if(userId !== undefined) {
-      // Convert userId to number
-      const userIdNumber = Number(userId);
-  
-      // Save the game session
-      this.gameService.saveGameSession(userIdNumber, this.score.value).subscribe({
-        next: (response) => {
-          this.authService.logout();
-          this.router.navigate(['/login']);
-          console.log('Game session saved!', response);
-        },
-        error: (error) => {
-          console.error('Error saving game session', error);
-        }
-      });
-    } else {
-      // Handle the undefined userId case here
-      console.error('User ID is undefined');
+        // Save the game session
+        this.gameService.saveGameSession(userIdNumber, this.score.value).subscribe({
+          next: (response) => {
+            this.authService.logout();
+            this.router.navigate(['/login']);
+            console.log('Game session saved!', response);
+          },
+          error: (error) => {
+            console.error('Error saving game session', error);
+          }
+        });
+      } else {
+        // Handle the undefined userId case here
+        console.error('User ID is undefined');
+      }
     }
   }
-  
 }

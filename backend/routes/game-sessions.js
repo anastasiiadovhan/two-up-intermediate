@@ -76,7 +76,7 @@ router.get('/user-score/:userId/highest-score', (req, res) => {
   const userId = req.params.userId;
 
   connection.query(
-    'SELECT users.username, MAX(game_sessions.score) as score FROM game_sessions INNER JOIN users ON game_sessions.user_id = users.id WHERE users.id = ? GROUP BY game_sessions.user_id, users.username',
+    'SELECT users.username, IFNULL(MAX(game_sessions.score), 0) as score FROM users LEFT JOIN game_sessions ON game_sessions.user_id = users.id WHERE users.id = ? GROUP BY users.username',
     [userId],
     (err, results) => {
       if (err) {

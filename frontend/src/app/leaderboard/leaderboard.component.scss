@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   padding: 10px;
+  border-collapse: collapse;
 }
 
 th {
@@ -16,4 +17,13 @@ th {
 
 td {
   text-align: center;
+}
+
+.table-wrapper {
+  padding: 20px;
+  height: 95%;
+}
+
+.your-score {
+  border-top: 4px solid black;
 }
