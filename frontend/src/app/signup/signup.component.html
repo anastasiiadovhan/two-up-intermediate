@@ -33,8 +33,10 @@
                       name="username"
                       placeholder="Username"
                       tabindex="10"
+                      pattern="^\S*$"
                       required
                       minlength="3"
+                      maxlength="20"
                       [(ngModel)]="username"
                       #usernameField="ngModel"
                   />
@@ -45,6 +47,12 @@
                 </div>
                 <div *ngIf="usernameField.errors?.['minlength']">
                     Username must be at least 3 characters long.
+                </div>
+                <div *ngIf="usernameField.errors?.['maxlength']">
+                  Username cannot be longer than 20 characters.
+                </div>
+                <div *ngIf="usernameField.errors?.['pattern']">
+                  Username cannot contain spaces.
                 </div>
             </div>
               <div class="form-input pb-4">
