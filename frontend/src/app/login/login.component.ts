@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.username.trim() === '' || this.password.trim() === '') {
+      this.errorMessage = 'Username and password cannot be blank';
+      return;
+    }
+
     this.authService.login(this.username, this.password)
     .subscribe({
       next: (response) => {

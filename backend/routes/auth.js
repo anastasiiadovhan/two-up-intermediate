@@ -36,9 +36,16 @@ router.post('/signup', (req, res) => {
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
+   // Check if username and password are not empty
+   if (!username || !password) {
+    res.status(400).json({message: 'Username and password must not be blank'});
+    return;
+  }
+
   const sql = 'SELECT * FROM users WHERE username = ?';
   connection.query(sql, [username], (err, results) => {
     if (err || results.length === 0) {
+      // If there's an error with the query or if the user doesn't exist
       console.error('Error fetching user from database', err);
       res.status(500).json({message: 'Server error', error: err ? err.toString() : 'User not found'});
       return;
@@ -46,6 +53,7 @@ router.post('/login', (req, res) => {
 
     const user = results[0];
 
+    // If the password is wrong
     bcrypt.compare(password, user.password, (err, result) => {
       if (err || !result) {
         console.error('Error comparing passwords', err);

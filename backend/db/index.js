@@ -1,15 +1,15 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
-  password: 'my-secret-pw',
+  password: 'Qwerty1509',
   database: 'twoupgame'
 });
 
 connection.connect(err => {
   if (err) {
-    console.error('An error occurred while connecting to the DB');
+    console.error('An error occurred while connecting to the DB: ' + err.message);
     throw err;
   }
 });

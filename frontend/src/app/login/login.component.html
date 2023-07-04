@@ -31,7 +31,7 @@
                           <input type="password" class="input" name="password" placeholder="Password" required [(ngModel)]="password" />
                       </div>
                       <div *ngIf="errorMessage" class="alert-custom">
-                        Invalid credentials
+                        {{ errorMessage }}
                       </div>                      
                       <div class="mb-3 pb-3">
                           <button type="submit" class="btn-main btn-block btn-main-rotate">Login</button>
