@@ -27,12 +27,17 @@ describe('LeaderboardComponent', () => {
 
     fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
+
+    mockAuthService.getUserId.and.returnValue('1');
+
+    mockGameService.getLeaderboard.and.returnValue(of(leaderboardData));
+    mockGameService.getUserHighestScore.and.returnValue(of(userScoreData));
+
+    fixture.detectChanges();
   });
 
   it('should fetch leaderboard on initialization', () => {
     mockGameService.getLeaderboard.and.returnValue(of(leaderboardData));
-
-    fixture.detectChanges(); // Manually trigger ngOnInit()
 
     expect(component.leaderboard).toEqual(leaderboardData);
     expect(mockGameService.getLeaderboard).toHaveBeenCalled();
@@ -44,7 +49,8 @@ describe('LeaderboardComponent', () => {
     mockGameService.getUserHighestScore.and.returnValue(of({}));
 
     spyOn(console, 'error');
-    fixture.detectChanges(); // Manually trigger ngOnInit()
+
+    component.ngOnInit(); // Trigger the initialization which should call the error
 
     expect(console.error).toHaveBeenCalledWith('Error fetching leaderboard data', errorResponse);
   });
@@ -55,8 +61,6 @@ describe('LeaderboardComponent', () => {
     mockAuthService.getUserId.and.returnValue(userId);
     mockGameService.getUserHighestScore.and.returnValue(of(userScoreData));
 
-    fixture.detectChanges(); // Manually trigger ngOnInit()
-
     expect(component.userScore).toEqual(userScoreData);
     expect(mockGameService.getUserHighestScore).toHaveBeenCalledWith(userId);
   });
@@ -64,11 +68,11 @@ describe('LeaderboardComponent', () => {
   it('should handle error when fetching user score', () => {
     const errorResponse = new ErrorEvent('network error');
     mockGameService.getUserHighestScore.and.returnValue(throwError(() => errorResponse));
-
     mockGameService.getLeaderboard.and.returnValue(of([]));
 
     spyOn(console, 'error');
-    fixture.detectChanges(); // Manually trigger ngOnInit()
+    
+    component.ngOnInit();
 
     expect(console.error).toHaveBeenCalledWith('Error fetching user score', errorResponse);
   });
